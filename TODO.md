@@ -27,7 +27,7 @@
 - [ ] create functions 4 working with db
 
 ## Controller
-- [ ] add command-line flag parsing
+- [x] add command-line flag parsing
 - [ ] create gRPC client
 - [ ] create scheduler 4 report sending
 

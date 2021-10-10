@@ -14,10 +14,6 @@ import (
 	"google.golang.org/grpc"
 )
 
-const (
-	minPort = 1
-	maxPort = 65535
-)
 
 type Options struct {
 	DBUser   string
@@ -29,7 +25,13 @@ type Options struct {
 }
 
 func (opts *Options) check() error {
+	const (
+		minPort = 1
+		maxPort = 65535
+	)
+
 	errList := make([]string, 0, 5)
+
 	if opts.DBPort < minPort || opts.DBPort > maxPort {
 		errList = append(errList, fmt.Sprintf("database port %d out of range [%d:%d]\n", opts.DBPort, minPort, maxPort))
 	}
