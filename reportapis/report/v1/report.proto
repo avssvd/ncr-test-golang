@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package report.v1;
+
+message Report {
+  string serial = 1;
+  float indication = 2;
+}
+
+message PutReportRequest {
+  Report report = 1;
+}
+
+message PutReportResponse {
+  int64 time_before_next_conn_in_sec = 1;
+  string error_message = 2;
+}
+
+service ReportService {
+  rpc PutReport(PutReportRequest) returns (PutReportResponse) {}
+}
