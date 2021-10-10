@@ -13,19 +13,21 @@
 
 ## API
 ### gRPC
-- [ ] create report.proto
-- [ ] create buf.yaml
-- [ ] create buf.gen.yaml
+- [x] create report.proto
+- [x] create buf.yaml
+- [x] create buf.gen.yaml
 
 ### http
 - [ ] create swagger.yaml 
 
 ## Controller-backend
+- [x] add command-line flag parsing
 - [ ] create gRPC server
 - [ ] create http server
 - [ ] create functions 4 working with db
 
 ## Controller
+- [ ] add command-line flag parsing
 - [ ] create gRPC client
 - [ ] create scheduler 4 report sending
 
