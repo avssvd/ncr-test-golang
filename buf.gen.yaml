@@ -1,8 +1,4 @@
 version: v1
-managed:
-  enabled: true
-  go_package_prefix:
-    default: github.com/avssvd/ncr-test-golang/gen/proto/go
 plugins:
   - name: go
     out: gen/proto/go

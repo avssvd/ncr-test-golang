@@ -2,13 +2,11 @@ syntax = "proto3";
 
 package report.v1;
 
-message Report {
-  string serial = 1;
-  float indication = 2;
-}
+option go_package = "https://github.com/avssvd/ncr-test-golang/tree/dev/gen/proto/go/report/v1;reportv1";
 
 message PutReportRequest {
-  Report report = 1;
+  string serial = 1;
+  float indication = 2;
 }
 
 message PutReportResponse {
