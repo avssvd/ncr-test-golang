@@ -4,9 +4,19 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"log"
+	"math/rand"
+	"time"
+
 	reportv1 "github.com/avssvd/ncr-test-golang/gen/proto/go/reportapis/report/v1"
 	"google.golang.org/grpc"
-	"log"
+)
+
+const (
+	minTemp       = 20
+	maxTemp       = 40
+	errDelayInSec = 6
+	maxNFail      = 3
 )
 
 type Options struct {
@@ -28,6 +38,10 @@ func (opts *Options) check() error {
 	return nil
 }
 
+// win 	-> 	message + wait TimeBeforeNextConnInSec
+// err 	-> 	message + wait 1 min for next conn
+//			3x err in a row -> shutdown
+
 func main() {
 	var opts Options
 	flag.StringVar(&opts.Serial, "serial", "unknown", "controller serial")
@@ -39,27 +53,48 @@ func main() {
 	if err := opts.check(); err != nil {
 		log.Fatal(err)
 	}
-	if err := sendReport(opts.ServerURI, opts.ServerPort, opts.Serial); err != nil {
-		log.Fatal(err)
+
+	nFail := 0
+	for nFail < maxNFail {
+		delayInSec, err := sendReport(opts.ServerURI, opts.ServerPort, opts.Serial)
+		if err != nil {
+			log.Println(err)
+			nFail++
+			// TODO fix sleep after 3rd fail
+			time.Sleep(errDelayInSec * time.Second)
+			continue
+		}
+
+		time.Sleep(time.Duration(delayInSec) * time.Second)
 	}
 }
-func sendReport(servURI string, servPort int, serial string) error {
+
+func sendReport(servURI string, servPort int, serial string) (delayInSec int64, err error) {
 	connectTo := fmt.Sprintf("%s:%d", servURI, servPort)
-	fmt.Println(connectTo)
-	conn, err := grpc.Dial(connectTo, grpc.WithBlock(), grpc.WithInsecure())
+	conn, err := grpc.Dial(connectTo, grpc.WithInsecure())
 	if err != nil {
-		return fmt.Errorf("failed to connect to ReportService on %s: %w", connectTo, err)
+		return 0, fmt.Errorf("failed to connect to ReportService on %s: %w", connectTo, err)
 	}
-	log.Println("Connected to", connectTo)
 
 	controller := reportv1.NewReportServiceClient(conn)
-	if _, err := controller.PutReport(context.Background(), &reportv1.PutReportRequest{
+	resp, err := controller.PutReport(context.Background(), &reportv1.PutReportRequest{
 		Serial:     serial,
-		Indication: 40.4,
-	}); err != nil {
-		return fmt.Errorf("failed to PutReport: %w", err)
+		Indication: getTemp(),
+	})
+
+	switch {
+	case err != nil:
+		return 0, fmt.Errorf("failed to PutReport: %w", err)
+
+	case resp.ErrorMessage != "":
+		return 0, fmt.Errorf("server error: %s", resp.ErrorMessage)
 	}
 
-	log.Println("Successfully PutReport")
-	return nil
+	log.Printf("Successfully PutReport; %d sec for next report", resp.TimeBeforeNextConnInSec)
+	return resp.TimeBeforeNextConnInSec, nil
+}
+
+func getTemp() float32 {
+	rand.Seed(time.Now().Unix())
+	return minTemp + rand.Float32()*(maxTemp-minTemp)
 }

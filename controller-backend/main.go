@@ -2,26 +2,41 @@ package main
 
 import (
 	"context"
+	"database/sql"
+	"time"
+
 	"flag"
 	"fmt"
 	"log"
 	"net"
 	"strings"
 
-	// This import path is based on the name declaration in the go.mod,
-	// and the gen/proto/go output location in the buf.gen.yaml.
 	reportv1 "github.com/avssvd/ncr-test-golang/gen/proto/go/reportapis/report/v1"
+	db "github.com/avssvd/ncr-test-golang/gen/sqlc"
+	_ "github.com/lib/pq"
 	"google.golang.org/grpc"
 )
-
 
 type Options struct {
 	DBUser   string
 	DBPass   string
+	DBName   string
 	DBURI    string
 	DBPort   int
 	GRPCPort int
 	HTTPPort int
+}
+
+func (opts *Options) get() {
+	flag.StringVar(&opts.DBUser, "dbuser", "app", "database user")
+	flag.StringVar(&opts.DBPass, "dbpass", "pass", "database password")
+	flag.StringVar(&opts.DBName, "dbname", "app", "database name")
+	flag.StringVar(&opts.DBURI, "dburi", "db", "database URI")
+	flag.IntVar(&opts.DBPort, "dbport", 5432, "database port")
+	flag.IntVar(&opts.GRPCPort, "grpcport", 8080, "port to listen on gRPC")
+	flag.IntVar(&opts.HTTPPort, "httpport", 8081, "port to listen on HTTP")
+
+	flag.Parse()
 }
 
 func (opts *Options) check() error {
@@ -53,25 +68,28 @@ func (opts *Options) check() error {
 
 func main() {
 	var opts Options
-	flag.StringVar(&opts.DBUser, "dbuser", "app", "database user")
-	flag.StringVar(&opts.DBPass, "dbpass", "pass", "database password")
-	flag.StringVar(&opts.DBURI, "dburi", "db", "database URI")
-	flag.IntVar(&opts.DBPort, "dbport", 5432, "database port")
-	flag.IntVar(&opts.GRPCPort, "grpcport", 8080, "port to listen on gRPC")
-	flag.IntVar(&opts.HTTPPort, "httpport", 8081, "port to listen on HTTP")
 
-	flag.Parse()
+	opts.get()
 
 	if err := opts.check(); err != nil {
 		log.Fatal(err)
 	}
 
-	if err := grpcServe(opts.GRPCPort); err != nil {
+	connstr := fmt.Sprintf("dbname=%s host=%s port=%d user=%s password='%s' sslmode=disable",
+		opts.DBName, opts.DBURI, opts.DBPort, opts.DBUser, opts.DBPass)
+	database, err := sql.Open("postgres", connstr)
+	if err != nil {
+		log.Fatal("failed to open db:", err.Error())
+	}
+
+	queries := db.New(database)
+
+	if err := grpcServe(opts.GRPCPort, queries); err != nil {
 		log.Fatal(err)
 	}
 }
 
-func grpcServe(grpcPort int) error {
+func grpcServe(grpcPort int, db *db.Queries) error {
 	listenOn := fmt.Sprintf(":%d", grpcPort)
 	listener, err := net.Listen("tcp", listenOn)
 	if err != nil {
@@ -79,7 +97,7 @@ func grpcServe(grpcPort int) error {
 	}
 
 	server := grpc.NewServer()
-	reportv1.RegisterReportServiceServer(server, &reportServiceServer{})
+	reportv1.RegisterReportServiceServer(server, &reportServiceServer{db: db})
 	log.Println("Listening on", listenOn)
 	if err := server.Serve(listener); err != nil {
 		return fmt.Errorf("failed to serve gRPC server: %w", err)
@@ -90,11 +108,27 @@ func grpcServe(grpcPort int) error {
 
 type reportServiceServer struct {
 	reportv1.UnimplementedReportServiceServer
+	db *db.Queries
 }
 
 func (s *reportServiceServer) PutReport(ctx context.Context, req *reportv1.PutReportRequest) (*reportv1.PutReportResponse, error) {
 	serial := req.GetSerial()
 	indication := req.GetIndication()
+
+	err := s.db.CreateIndication(ctx, db.CreateIndicationParams{
+		Indication:       fmt.Sprintf("%.1f", indication),
+		ControllerSerial: serial,
+		SentAt:           time.Now(),
+	})
+
+	if err != nil {
+		return &reportv1.PutReportResponse{
+			// TODO generate? timeBeforeNextConnInSec
+			TimeBeforeNextConnInSec: 10,
+			ErrorMessage:            err.Error(),
+		}, nil
+
+	}
 
 	log.Printf("New report from %v: temperature is %v\n", serial, indication)
 
