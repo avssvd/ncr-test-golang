@@ -7,10 +7,9 @@ SELECT * FROM indications
 WHERE controller_serial = $1
 ORDER BY sent_at;
 
--- name: CreateIndication :one
+-- name: CreateIndication :exec
 INSERT INTO indications (
     indication, controller_serial, sent_at
 ) VALUES (
              $1, $2, $3
-         )
-RETURNING *;
+         );

@@ -7,20 +7,17 @@ import (
 	"context"
 )
 
-const createController = `-- name: CreateController :one
+const createController = `-- name: CreateController :exec
 INSERT INTO controllers (
     serial
 ) VALUES (
              $1
          )
-RETURNING serial, created_at
 `
 
-func (q *Queries) CreateController(ctx context.Context, serial int32) (Controller, error) {
-	row := q.db.QueryRowContext(ctx, createController, serial)
-	var i Controller
-	err := row.Scan(&i.Serial, &i.CreatedAt)
-	return i, err
+func (q *Queries) CreateController(ctx context.Context, serial string) error {
+	_, err := q.db.ExecContext(ctx, createController, serial)
+	return err
 }
 
 const deleteController = `-- name: DeleteController :exec
@@ -28,7 +25,7 @@ DELETE FROM controllers
 WHERE serial = $1
 `
 
-func (q *Queries) DeleteController(ctx context.Context, serial int32) error {
+func (q *Queries) DeleteController(ctx context.Context, serial string) error {
 	_, err := q.db.ExecContext(ctx, deleteController, serial)
 	return err
 }
@@ -38,7 +35,7 @@ SELECT serial, created_at FROM controllers
 WHERE serial = $1
 `
 
-func (q *Queries) GetController(ctx context.Context, serial int32) (Controller, error) {
+func (q *Queries) GetController(ctx context.Context, serial string) (Controller, error) {
 	row := q.db.QueryRowContext(ctx, getController, serial)
 	var i Controller
 	err := row.Scan(&i.Serial, &i.CreatedAt)

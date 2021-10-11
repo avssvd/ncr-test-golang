@@ -6,13 +6,12 @@ WHERE serial = $1;
 SELECT * FROM controllers
 ORDER BY serial;
 
--- name: CreateController :one
+-- name: CreateController :exec
 INSERT INTO controllers (
     serial
 ) VALUES (
              $1
-         )
-RETURNING *;
+         );
 
 -- name: DeleteController :exec
 DELETE FROM controllers

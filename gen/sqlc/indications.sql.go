@@ -8,32 +8,23 @@ import (
 	"time"
 )
 
-const createIndication = `-- name: CreateIndication :one
+const createIndication = `-- name: CreateIndication :exec
 INSERT INTO indications (
     indication, controller_serial, sent_at
 ) VALUES (
              $1, $2, $3
          )
-RETURNING id, indication, controller_serial, sent_at, created_at
 `
 
 type CreateIndicationParams struct {
 	Indication       string    `json:"indication"`
-	ControllerSerial int32     `json:"controllerSerial"`
+	ControllerSerial string    `json:"controllerSerial"`
 	SentAt           time.Time `json:"sentAt"`
 }
 
-func (q *Queries) CreateIndication(ctx context.Context, arg CreateIndicationParams) (Indication, error) {
-	row := q.db.QueryRowContext(ctx, createIndication, arg.Indication, arg.ControllerSerial, arg.SentAt)
-	var i Indication
-	err := row.Scan(
-		&i.ID,
-		&i.Indication,
-		&i.ControllerSerial,
-		&i.SentAt,
-		&i.CreatedAt,
-	)
-	return i, err
+func (q *Queries) CreateIndication(ctx context.Context, arg CreateIndicationParams) error {
+	_, err := q.db.ExecContext(ctx, createIndication, arg.Indication, arg.ControllerSerial, arg.SentAt)
+	return err
 }
 
 const listIndications = `-- name: ListIndications :many
@@ -76,7 +67,7 @@ WHERE controller_serial = $1
 ORDER BY sent_at
 `
 
-func (q *Queries) ListIndicationsByController(ctx context.Context, controllerSerial int32) ([]Indication, error) {
+func (q *Queries) ListIndicationsByController(ctx context.Context, controllerSerial string) ([]Indication, error) {
 	rows, err := q.db.QueryContext(ctx, listIndicationsByController, controllerSerial)
 	if err != nil {
 		return nil, err

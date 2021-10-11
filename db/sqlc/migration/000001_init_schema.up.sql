@@ -1,12 +1,12 @@
 CREATE TABLE "controllers" (
-                               "serial" int PRIMARY KEY,
+                               "serial" varchar PRIMARY KEY,
                                "created_at" timestamp NOT NULL DEFAULT (now())
 );
 
 CREATE TABLE "indications" (
                                "id" BIGSERIAL PRIMARY KEY,
                                "indication" numeric(3,1) NOT NULL,
-                               "controller_serial" int NOT NULL,
+                               "controller_serial" varchar NOT NULL,
                                "sent_at" timestamp NOT NULL,
                                "created_at" timestamp NOT NULL DEFAULT (now())
 );

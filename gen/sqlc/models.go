@@ -7,14 +7,14 @@ import (
 )
 
 type Controller struct {
-	Serial    int32     `json:"serial"`
+	Serial    string    `json:"serial"`
 	CreatedAt time.Time `json:"createdAt"`
 }
 
 type Indication struct {
 	ID               int64     `json:"id"`
 	Indication       string    `json:"indication"`
-	ControllerSerial int32     `json:"controllerSerial"`
+	ControllerSerial string    `json:"controllerSerial"`
 	SentAt           time.Time `json:"sentAt"`
 	CreatedAt        time.Time `json:"createdAt"`
 }
