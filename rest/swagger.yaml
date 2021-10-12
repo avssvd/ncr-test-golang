@@ -1,0 +1,171 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Controller-backend REST API
+  description: An API that allows users to obtain existing information of controllers and indications
+
+paths:
+  /controllers:
+    get:
+      summary: List of controllers
+      description: Get list of controllers
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful pull of controllers info
+          schema:
+            type: object
+            properties:
+              controllers:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    serial:
+                      type: string
+                    created_at:
+                      type: string
+                      format: date-time
+        500:
+          description: Internal server Error
+          schema:
+            $ref: '#/responses/ServerError'
+
+  /controller/indications:
+    get:
+      summary: List of controller's indications
+      description: Get list of controller's indications
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: controller
+          required: true
+          description: Controller's serial
+          schema:
+            type: object
+            properties:
+              serial:
+                type: string
+      responses:
+        200:
+          description: Controller's indications
+          schema:
+            type: object
+            properties:
+              indications:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    indication:
+                      type: number
+                      format: float
+                    sent_at:
+                      type: string
+                      format: date-time
+        400:
+          description: Controller is already exist
+          schema:
+            $ref: '#/responses/AlreadyExist'
+        500:
+          description: Internal server Error
+          schema:
+            $ref: '#/responses/ServerError'
+
+  /controller:
+    post:
+      summary: Add controller
+      description: Add controller in DB
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: controller
+          required: true
+          description: Controller's serial
+          schema:
+            type: object
+            properties:
+              serial:
+                type: string
+      responses:
+        200:
+          description: Status
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+        400:
+          description: Controller not found
+          schema:
+            $ref: '#/responses/NotFound'
+        500:
+          description: Internal server Error
+          schema:
+            $ref: '#/responses/ServerError'
+
+    delete:
+      summary: Delete controller
+      description: Delete controller with all it's indications
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: controller
+          required: true
+          description: Controller's serial
+          schema:
+            type: object
+            properties:
+              serial:
+                type: string
+      responses:
+        200:
+          description: Status
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+        400:
+          description: Controller not found
+          schema:
+            $ref: '#/responses/NotFound'
+        500:
+          description: Internal server Error
+          schema:
+            $ref: '#/responses/ServerError'
+
+responses:
+  NotFound:
+    description: Controller not found
+    schema:
+      $ref: '#/definitions/Error'
+  AlreadyExist:
+    description: Controller is already exist
+    schema:
+      $ref: '#/definitions/Error'
+  ServerError:
+    description: Internal server error
+    schema:
+      $ref: '#/definitions/Error'
+
+
+
+definitions:
+  Error:
+    type: object
+    properties:
+      error:
+        type: string
+    required:
+      - error
