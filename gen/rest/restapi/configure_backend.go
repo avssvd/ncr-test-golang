@@ -13,7 +13,7 @@ import (
 	"github.com/avssvd/ncr-test-golang/gen/rest/restapi/operations"
 )
 
-//go:generate swagger generate server --target ../../rest --name Backend --spec ../../../rest/swagger.yaml --principal interface{} --exclude-main
+//go:generate swagger generate server --target ../../rest --name Backend --spec ../../../api/rest/swagger.yaml --principal interface{} --exclude-main
 
 func configureFlags(api *operations.BackendAPI) {
 	// api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{ ... }

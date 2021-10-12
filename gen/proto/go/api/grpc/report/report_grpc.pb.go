@@ -95,5 +95,5 @@ var ReportService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "reportapis/report/v1/report.proto",
+	Metadata: "api/grpc/report/report.proto",
 }
