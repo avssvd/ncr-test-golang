@@ -27,10 +27,6 @@ paths:
                     created_at:
                       type: string
                       format: date-time
-        500:
-          description: Internal server Error
-          schema:
-            $ref: '#/responses/ServerError'
 
   /controller/indications:
     get:
@@ -68,13 +64,9 @@ paths:
                       type: string
                       format: date-time
         400:
-          description: Controller is already exist
+          description: Controller not found
           schema:
-            $ref: '#/responses/AlreadyExist'
-        500:
-          description: Internal server Error
-          schema:
-            $ref: '#/responses/ServerError'
+            $ref: '#/responses/NotFound'
 
   /controller:
     post:
@@ -103,13 +95,9 @@ paths:
               success:
                 type: boolean
         400:
-          description: Controller not found
+          description: Controller already exists
           schema:
-            $ref: '#/responses/NotFound'
-        500:
-          description: Internal server Error
-          schema:
-            $ref: '#/responses/ServerError'
+            $ref: '#/responses/AlreadyExists'
 
     delete:
       summary: Delete controller
@@ -140,26 +128,16 @@ paths:
           description: Controller not found
           schema:
             $ref: '#/responses/NotFound'
-        500:
-          description: Internal server Error
-          schema:
-            $ref: '#/responses/ServerError'
 
 responses:
   NotFound:
     description: Controller not found
     schema:
       $ref: '#/definitions/Error'
-  AlreadyExist:
-    description: Controller is already exist
+  AlreadyExists:
+    description: Controller already exists
     schema:
       $ref: '#/definitions/Error'
-  ServerError:
-    description: Internal server error
-    schema:
-      $ref: '#/definitions/Error'
-
-
 
 definitions:
   Error:

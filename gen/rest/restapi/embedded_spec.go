@@ -64,15 +64,9 @@ func init() {
             }
           },
           "400": {
-            "description": "Controller not found",
+            "description": "Controller already exists",
             "schema": {
-              "$ref": "#/responses/NotFound"
-            }
-          },
-          "500": {
-            "description": "Internal server Error",
-            "schema": {
-              "$ref": "#/responses/ServerError"
+              "$ref": "#/responses/AlreadyExists"
             }
           }
         }
@@ -118,12 +112,6 @@ func init() {
             "description": "Controller not found",
             "schema": {
               "$ref": "#/responses/NotFound"
-            }
-          },
-          "500": {
-            "description": "Internal server Error",
-            "schema": {
-              "$ref": "#/responses/ServerError"
             }
           }
         }
@@ -181,15 +169,9 @@ func init() {
             }
           },
           "400": {
-            "description": "Controller is already exist",
+            "description": "Controller not found",
             "schema": {
-              "$ref": "#/responses/AlreadyExist"
-            }
-          },
-          "500": {
-            "description": "Internal server Error",
-            "schema": {
-              "$ref": "#/responses/ServerError"
+              "$ref": "#/responses/NotFound"
             }
           }
         }
@@ -225,12 +207,6 @@ func init() {
                 }
               }
             }
-          },
-          "500": {
-            "description": "Internal server Error",
-            "schema": {
-              "$ref": "#/responses/ServerError"
-            }
           }
         }
       }
@@ -250,20 +226,14 @@ func init() {
     }
   },
   "responses": {
-    "AlreadyExist": {
-      "description": "Controller is already exist",
+    "AlreadyExists": {
+      "description": "Controller already exists",
       "schema": {
         "$ref": "#/definitions/Error"
       }
     },
     "NotFound": {
       "description": "Controller not found",
-      "schema": {
-        "$ref": "#/definitions/Error"
-      }
-    },
-    "ServerError": {
-      "description": "Internal server error",
       "schema": {
         "$ref": "#/definitions/Error"
       }
@@ -317,18 +287,9 @@ func init() {
             }
           },
           "400": {
-            "description": "Controller not found",
+            "description": "Controller already exists",
             "schema": {
-              "description": "Controller not found",
-              "schema": {
-                "$ref": "#/definitions/Error"
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server Error",
-            "schema": {
-              "description": "Internal server error",
+              "description": "Controller already exists",
               "schema": {
                 "$ref": "#/definitions/Error"
               }
@@ -381,15 +342,6 @@ func init() {
                 "$ref": "#/definitions/Error"
               }
             }
-          },
-          "500": {
-            "description": "Internal server Error",
-            "schema": {
-              "description": "Internal server error",
-              "schema": {
-                "$ref": "#/definitions/Error"
-              }
-            }
           }
         }
       }
@@ -436,18 +388,9 @@ func init() {
             }
           },
           "400": {
-            "description": "Controller is already exist",
+            "description": "Controller not found",
             "schema": {
-              "description": "Controller is already exist",
-              "schema": {
-                "$ref": "#/definitions/Error"
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server Error",
-            "schema": {
-              "description": "Internal server error",
+              "description": "Controller not found",
               "schema": {
                 "$ref": "#/definitions/Error"
               }
@@ -475,15 +418,6 @@ func init() {
                     "$ref": "#/definitions/ControllersItems0"
                   }
                 }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server Error",
-            "schema": {
-              "description": "Internal server error",
-              "schema": {
-                "$ref": "#/definitions/Error"
               }
             }
           }
@@ -530,20 +464,14 @@ func init() {
     }
   },
   "responses": {
-    "AlreadyExist": {
-      "description": "Controller is already exist",
+    "AlreadyExists": {
+      "description": "Controller already exists",
       "schema": {
         "$ref": "#/definitions/Error"
       }
     },
     "NotFound": {
       "description": "Controller not found",
-      "schema": {
-        "$ref": "#/definitions/Error"
-      }
-    },
-    "ServerError": {
-      "description": "Internal server error",
       "schema": {
         "$ref": "#/definitions/Error"
       }

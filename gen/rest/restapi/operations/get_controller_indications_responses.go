@@ -58,7 +58,7 @@ func (o *GetControllerIndicationsOK) WriteResponse(rw http.ResponseWriter, produ
 // GetControllerIndicationsBadRequestCode is the HTTP code returned for type GetControllerIndicationsBadRequest
 const GetControllerIndicationsBadRequestCode int = 400
 
-/*GetControllerIndicationsBadRequest Controller is already exist
+/*GetControllerIndicationsBadRequest Controller not found
 
 swagger:response getControllerIndicationsBadRequest
 */
@@ -91,48 +91,6 @@ func (o *GetControllerIndicationsBadRequest) SetPayload(payload interface{}) {
 func (o *GetControllerIndicationsBadRequest) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
 	rw.WriteHeader(400)
-	payload := o.Payload
-	if err := producer.Produce(rw, payload); err != nil {
-		panic(err) // let the recovery middleware deal with this
-	}
-}
-
-// GetControllerIndicationsInternalServerErrorCode is the HTTP code returned for type GetControllerIndicationsInternalServerError
-const GetControllerIndicationsInternalServerErrorCode int = 500
-
-/*GetControllerIndicationsInternalServerError Internal server Error
-
-swagger:response getControllerIndicationsInternalServerError
-*/
-type GetControllerIndicationsInternalServerError struct {
-
-	/*
-	  In: Body
-	*/
-	Payload interface{} `json:"body,omitempty"`
-}
-
-// NewGetControllerIndicationsInternalServerError creates GetControllerIndicationsInternalServerError with default headers values
-func NewGetControllerIndicationsInternalServerError() *GetControllerIndicationsInternalServerError {
-
-	return &GetControllerIndicationsInternalServerError{}
-}
-
-// WithPayload adds the payload to the get controller indications internal server error response
-func (o *GetControllerIndicationsInternalServerError) WithPayload(payload interface{}) *GetControllerIndicationsInternalServerError {
-	o.Payload = payload
-	return o
-}
-
-// SetPayload sets the payload to the get controller indications internal server error response
-func (o *GetControllerIndicationsInternalServerError) SetPayload(payload interface{}) {
-	o.Payload = payload
-}
-
-// WriteResponse to the client
-func (o *GetControllerIndicationsInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
-
-	rw.WriteHeader(500)
 	payload := o.Payload
 	if err := producer.Produce(rw, payload); err != nil {
 		panic(err) // let the recovery middleware deal with this

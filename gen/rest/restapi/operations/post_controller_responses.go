@@ -58,7 +58,7 @@ func (o *PostControllerOK) WriteResponse(rw http.ResponseWriter, producer runtim
 // PostControllerBadRequestCode is the HTTP code returned for type PostControllerBadRequest
 const PostControllerBadRequestCode int = 400
 
-/*PostControllerBadRequest Controller not found
+/*PostControllerBadRequest Controller already exists
 
 swagger:response postControllerBadRequest
 */
@@ -91,48 +91,6 @@ func (o *PostControllerBadRequest) SetPayload(payload interface{}) {
 func (o *PostControllerBadRequest) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
 	rw.WriteHeader(400)
-	payload := o.Payload
-	if err := producer.Produce(rw, payload); err != nil {
-		panic(err) // let the recovery middleware deal with this
-	}
-}
-
-// PostControllerInternalServerErrorCode is the HTTP code returned for type PostControllerInternalServerError
-const PostControllerInternalServerErrorCode int = 500
-
-/*PostControllerInternalServerError Internal server Error
-
-swagger:response postControllerInternalServerError
-*/
-type PostControllerInternalServerError struct {
-
-	/*
-	  In: Body
-	*/
-	Payload interface{} `json:"body,omitempty"`
-}
-
-// NewPostControllerInternalServerError creates PostControllerInternalServerError with default headers values
-func NewPostControllerInternalServerError() *PostControllerInternalServerError {
-
-	return &PostControllerInternalServerError{}
-}
-
-// WithPayload adds the payload to the post controller internal server error response
-func (o *PostControllerInternalServerError) WithPayload(payload interface{}) *PostControllerInternalServerError {
-	o.Payload = payload
-	return o
-}
-
-// SetPayload sets the payload to the post controller internal server error response
-func (o *PostControllerInternalServerError) SetPayload(payload interface{}) {
-	o.Payload = payload
-}
-
-// WriteResponse to the client
-func (o *PostControllerInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
-
-	rw.WriteHeader(500)
 	payload := o.Payload
 	if err := producer.Produce(rw, payload); err != nil {
 		panic(err) // let the recovery middleware deal with this
