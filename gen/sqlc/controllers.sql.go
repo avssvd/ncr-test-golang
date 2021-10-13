@@ -20,14 +20,17 @@ func (q *Queries) CreateController(ctx context.Context, serial string) error {
 	return err
 }
 
-const deleteController = `-- name: DeleteController :exec
+const deleteController = `-- name: DeleteController :execrows
 DELETE FROM controllers
 WHERE serial = $1
 `
 
-func (q *Queries) DeleteController(ctx context.Context, serial string) error {
-	_, err := q.db.ExecContext(ctx, deleteController, serial)
-	return err
+func (q *Queries) DeleteController(ctx context.Context, serial string) (int64, error) {
+	result, err := q.db.ExecContext(ctx, deleteController, serial)
+	if err != nil {
+		return 0, err
+	}
+	return result.RowsAffected()
 }
 
 const getController = `-- name: GetController :one

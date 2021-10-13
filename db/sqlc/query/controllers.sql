@@ -13,6 +13,6 @@ INSERT INTO controllers (
              $1
          );
 
--- name: DeleteController :exec
+-- name: DeleteController :execrows
 DELETE FROM controllers
 WHERE serial = $1;
