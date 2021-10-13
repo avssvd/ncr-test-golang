@@ -8,7 +8,7 @@ import (
 	"math/rand"
 	"time"
 
-	reportv1 "github.com/avssvd/ncr-test-golang/gen/proto/go/reportapis/report/v1"
+	reportv1 "github.com/avssvd/ncr-test-golang/gen/proto/go/api/grpc/report"
 	"google.golang.org/grpc"
 )
 
