@@ -63,6 +63,43 @@ func (o *GetControllerIndications) ServeHTTP(rw http.ResponseWriter, r *http.Req
 
 }
 
+// GetControllerIndicationsBadRequestBody get controller indications bad request body
+//
+// swagger:model GetControllerIndicationsBadRequestBody
+type GetControllerIndicationsBadRequestBody struct {
+
+	// error
+	Error string `json:"error,omitempty"`
+}
+
+// Validate validates this get controller indications bad request body
+func (o *GetControllerIndicationsBadRequestBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get controller indications bad request body based on context it is used
+func (o *GetControllerIndicationsBadRequestBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *GetControllerIndicationsBadRequestBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *GetControllerIndicationsBadRequestBody) UnmarshalBinary(b []byte) error {
+	var res GetControllerIndicationsBadRequestBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
+	return nil
+}
+
 // GetControllerIndicationsBody get controller indications body
 //
 // swagger:model GetControllerIndicationsBody

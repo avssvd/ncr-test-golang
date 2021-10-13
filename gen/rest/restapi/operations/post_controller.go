@@ -60,6 +60,43 @@ func (o *PostController) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 
 }
 
+// PostControllerBadRequestBody post controller bad request body
+//
+// swagger:model PostControllerBadRequestBody
+type PostControllerBadRequestBody struct {
+
+	// error
+	Error string `json:"error,omitempty"`
+}
+
+// Validate validates this post controller bad request body
+func (o *PostControllerBadRequestBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this post controller bad request body based on context it is used
+func (o *PostControllerBadRequestBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *PostControllerBadRequestBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *PostControllerBadRequestBody) UnmarshalBinary(b []byte) error {
+	var res PostControllerBadRequestBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
+	return nil
+}
+
 // PostControllerBody post controller body
 //
 // swagger:model PostControllerBody

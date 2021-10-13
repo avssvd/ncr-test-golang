@@ -67,7 +67,7 @@ type DeleteControllerBadRequest struct {
 	/*
 	  In: Body
 	*/
-	Payload interface{} `json:"body,omitempty"`
+	Payload *DeleteControllerBadRequestBody `json:"body,omitempty"`
 }
 
 // NewDeleteControllerBadRequest creates DeleteControllerBadRequest with default headers values
@@ -77,13 +77,13 @@ func NewDeleteControllerBadRequest() *DeleteControllerBadRequest {
 }
 
 // WithPayload adds the payload to the delete controller bad request response
-func (o *DeleteControllerBadRequest) WithPayload(payload interface{}) *DeleteControllerBadRequest {
+func (o *DeleteControllerBadRequest) WithPayload(payload *DeleteControllerBadRequestBody) *DeleteControllerBadRequest {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the delete controller bad request response
-func (o *DeleteControllerBadRequest) SetPayload(payload interface{}) {
+func (o *DeleteControllerBadRequest) SetPayload(payload *DeleteControllerBadRequestBody) {
 	o.Payload = payload
 }
 
@@ -91,8 +91,10 @@ func (o *DeleteControllerBadRequest) SetPayload(payload interface{}) {
 func (o *DeleteControllerBadRequest) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
 	rw.WriteHeader(400)
-	payload := o.Payload
-	if err := producer.Produce(rw, payload); err != nil {
-		panic(err) // let the recovery middleware deal with this
+	if o.Payload != nil {
+		payload := o.Payload
+		if err := producer.Produce(rw, payload); err != nil {
+			panic(err) // let the recovery middleware deal with this
+		}
 	}
 }

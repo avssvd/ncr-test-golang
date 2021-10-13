@@ -67,7 +67,7 @@ type PostControllerBadRequest struct {
 	/*
 	  In: Body
 	*/
-	Payload interface{} `json:"body,omitempty"`
+	Payload *PostControllerBadRequestBody `json:"body,omitempty"`
 }
 
 // NewPostControllerBadRequest creates PostControllerBadRequest with default headers values
@@ -77,13 +77,13 @@ func NewPostControllerBadRequest() *PostControllerBadRequest {
 }
 
 // WithPayload adds the payload to the post controller bad request response
-func (o *PostControllerBadRequest) WithPayload(payload interface{}) *PostControllerBadRequest {
+func (o *PostControllerBadRequest) WithPayload(payload *PostControllerBadRequestBody) *PostControllerBadRequest {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the post controller bad request response
-func (o *PostControllerBadRequest) SetPayload(payload interface{}) {
+func (o *PostControllerBadRequest) SetPayload(payload *PostControllerBadRequestBody) {
 	o.Payload = payload
 }
 
@@ -91,8 +91,10 @@ func (o *PostControllerBadRequest) SetPayload(payload interface{}) {
 func (o *PostControllerBadRequest) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
 	rw.WriteHeader(400)
-	payload := o.Payload
-	if err := producer.Produce(rw, payload); err != nil {
-		panic(err) // let the recovery middleware deal with this
+	if o.Payload != nil {
+		payload := o.Payload
+		if err := producer.Produce(rw, payload); err != nil {
+			panic(err) // let the recovery middleware deal with this
+		}
 	}
 }

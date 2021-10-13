@@ -66,7 +66,12 @@ func init() {
           "400": {
             "description": "Controller already exists",
             "schema": {
-              "$ref": "#/responses/AlreadyExists"
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
             }
           }
         }
@@ -111,7 +116,12 @@ func init() {
           "400": {
             "description": "Controller not found",
             "schema": {
-              "$ref": "#/responses/NotFound"
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
             }
           }
         }
@@ -171,7 +181,12 @@ func init() {
           "400": {
             "description": "Controller not found",
             "schema": {
-              "$ref": "#/responses/NotFound"
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
             }
           }
         }
@@ -209,33 +224,6 @@ func init() {
             }
           }
         }
-      }
-    }
-  },
-  "definitions": {
-    "Error": {
-      "type": "object",
-      "required": [
-        "error"
-      ],
-      "properties": {
-        "error": {
-          "type": "string"
-        }
-      }
-    }
-  },
-  "responses": {
-    "AlreadyExists": {
-      "description": "Controller already exists",
-      "schema": {
-        "$ref": "#/definitions/Error"
-      }
-    },
-    "NotFound": {
-      "description": "Controller not found",
-      "schema": {
-        "$ref": "#/definitions/Error"
       }
     }
   }
@@ -289,9 +277,11 @@ func init() {
           "400": {
             "description": "Controller already exists",
             "schema": {
-              "description": "Controller already exists",
-              "schema": {
-                "$ref": "#/definitions/Error"
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -337,9 +327,11 @@ func init() {
           "400": {
             "description": "Controller not found",
             "schema": {
-              "description": "Controller not found",
-              "schema": {
-                "$ref": "#/definitions/Error"
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -390,9 +382,11 @@ func init() {
           "400": {
             "description": "Controller not found",
             "schema": {
-              "description": "Controller not found",
-              "schema": {
-                "$ref": "#/definitions/Error"
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -438,17 +432,6 @@ func init() {
         }
       }
     },
-    "Error": {
-      "type": "object",
-      "required": [
-        "error"
-      ],
-      "properties": {
-        "error": {
-          "type": "string"
-        }
-      }
-    },
     "IndicationsItems0": {
       "type": "object",
       "properties": {
@@ -460,20 +443,6 @@ func init() {
           "type": "string",
           "format": "date-time"
         }
-      }
-    }
-  },
-  "responses": {
-    "AlreadyExists": {
-      "description": "Controller already exists",
-      "schema": {
-        "$ref": "#/definitions/Error"
-      }
-    },
-    "NotFound": {
-      "description": "Controller not found",
-      "schema": {
-        "$ref": "#/definitions/Error"
       }
     }
   }

@@ -67,7 +67,7 @@ type GetControllerIndicationsBadRequest struct {
 	/*
 	  In: Body
 	*/
-	Payload interface{} `json:"body,omitempty"`
+	Payload *GetControllerIndicationsBadRequestBody `json:"body,omitempty"`
 }
 
 // NewGetControllerIndicationsBadRequest creates GetControllerIndicationsBadRequest with default headers values
@@ -77,13 +77,13 @@ func NewGetControllerIndicationsBadRequest() *GetControllerIndicationsBadRequest
 }
 
 // WithPayload adds the payload to the get controller indications bad request response
-func (o *GetControllerIndicationsBadRequest) WithPayload(payload interface{}) *GetControllerIndicationsBadRequest {
+func (o *GetControllerIndicationsBadRequest) WithPayload(payload *GetControllerIndicationsBadRequestBody) *GetControllerIndicationsBadRequest {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the get controller indications bad request response
-func (o *GetControllerIndicationsBadRequest) SetPayload(payload interface{}) {
+func (o *GetControllerIndicationsBadRequest) SetPayload(payload *GetControllerIndicationsBadRequestBody) {
 	o.Payload = payload
 }
 
@@ -91,8 +91,10 @@ func (o *GetControllerIndicationsBadRequest) SetPayload(payload interface{}) {
 func (o *GetControllerIndicationsBadRequest) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
 	rw.WriteHeader(400)
-	payload := o.Payload
-	if err := producer.Produce(rw, payload); err != nil {
-		panic(err) // let the recovery middleware deal with this
+	if o.Payload != nil {
+		payload := o.Payload
+		if err := producer.Produce(rw, payload); err != nil {
+			panic(err) // let the recovery middleware deal with this
+		}
 	}
 }

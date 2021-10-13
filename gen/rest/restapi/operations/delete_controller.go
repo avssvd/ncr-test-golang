@@ -60,6 +60,43 @@ func (o *DeleteController) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 
 }
 
+// DeleteControllerBadRequestBody delete controller bad request body
+//
+// swagger:model DeleteControllerBadRequestBody
+type DeleteControllerBadRequestBody struct {
+
+	// error
+	Error string `json:"error,omitempty"`
+}
+
+// Validate validates this delete controller bad request body
+func (o *DeleteControllerBadRequestBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this delete controller bad request body based on context it is used
+func (o *DeleteControllerBadRequestBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *DeleteControllerBadRequestBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *DeleteControllerBadRequestBody) UnmarshalBinary(b []byte) error {
+	var res DeleteControllerBadRequestBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
+	return nil
+}
+
 // DeleteControllerBody delete controller body
 //
 // swagger:model DeleteControllerBody

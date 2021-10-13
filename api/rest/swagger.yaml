@@ -66,7 +66,10 @@ paths:
         400:
           description: Controller not found
           schema:
-            $ref: '#/responses/NotFound'
+            type: object
+            properties:
+              error:
+                type: string
 
   /controller:
     post:
@@ -97,7 +100,10 @@ paths:
         400:
           description: Controller already exists
           schema:
-            $ref: '#/responses/AlreadyExists'
+            type: object
+            properties:
+              error:
+                type: string
 
     delete:
       summary: Delete controller
@@ -127,23 +133,7 @@ paths:
         400:
           description: Controller not found
           schema:
-            $ref: '#/responses/NotFound'
-
-responses:
-  NotFound:
-    description: Controller not found
-    schema:
-      $ref: '#/definitions/Error'
-  AlreadyExists:
-    description: Controller already exists
-    schema:
-      $ref: '#/definitions/Error'
-
-definitions:
-  Error:
-    type: object
-    properties:
-      error:
-        type: string
-    required:
-      - error
+            type: object
+            properties:
+              error:
+                type: string
