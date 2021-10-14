@@ -137,6 +137,43 @@ func (o *GetControllerIndicationsBody) UnmarshalBinary(b []byte) error {
 	return nil
 }
 
+// GetControllerIndicationsInternalServerErrorBody get controller indications internal server error body
+//
+// swagger:model GetControllerIndicationsInternalServerErrorBody
+type GetControllerIndicationsInternalServerErrorBody struct {
+
+	// error
+	Error string `json:"error,omitempty"`
+}
+
+// Validate validates this get controller indications internal server error body
+func (o *GetControllerIndicationsInternalServerErrorBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get controller indications internal server error body based on context it is used
+func (o *GetControllerIndicationsInternalServerErrorBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *GetControllerIndicationsInternalServerErrorBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *GetControllerIndicationsInternalServerErrorBody) UnmarshalBinary(b []byte) error {
+	var res GetControllerIndicationsInternalServerErrorBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
+	return nil
+}
+
 // GetControllerIndicationsOKBody get controller indications o k body
 //
 // swagger:model GetControllerIndicationsOKBody

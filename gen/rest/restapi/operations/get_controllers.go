@@ -63,6 +63,43 @@ func (o *GetControllers) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 
 }
 
+// GetControllersInternalServerErrorBody get controllers internal server error body
+//
+// swagger:model GetControllersInternalServerErrorBody
+type GetControllersInternalServerErrorBody struct {
+
+	// error
+	Error string `json:"error,omitempty"`
+}
+
+// Validate validates this get controllers internal server error body
+func (o *GetControllersInternalServerErrorBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this get controllers internal server error body based on context it is used
+func (o *GetControllersInternalServerErrorBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *GetControllersInternalServerErrorBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *GetControllersInternalServerErrorBody) UnmarshalBinary(b []byte) error {
+	var res GetControllersInternalServerErrorBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
+	return nil
+}
+
 // GetControllersOKBody get controllers o k body
 //
 // swagger:model GetControllersOKBody

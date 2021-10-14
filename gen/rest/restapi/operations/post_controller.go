@@ -134,6 +134,43 @@ func (o *PostControllerBody) UnmarshalBinary(b []byte) error {
 	return nil
 }
 
+// PostControllerInternalServerErrorBody post controller internal server error body
+//
+// swagger:model PostControllerInternalServerErrorBody
+type PostControllerInternalServerErrorBody struct {
+
+	// error
+	Error string `json:"error,omitempty"`
+}
+
+// Validate validates this post controller internal server error body
+func (o *PostControllerInternalServerErrorBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this post controller internal server error body based on context it is used
+func (o *PostControllerInternalServerErrorBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *PostControllerInternalServerErrorBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *PostControllerInternalServerErrorBody) UnmarshalBinary(b []byte) error {
+	var res PostControllerInternalServerErrorBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
+	return nil
+}
+
 // PostControllerOKBody post controller o k body
 //
 // swagger:model PostControllerOKBody

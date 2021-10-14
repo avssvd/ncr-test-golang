@@ -27,6 +27,13 @@ paths:
                     created_at:
                       type: string
                       format: date-time
+        500:
+          description: Server error
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
 
   /controller/indications:
     get:
@@ -70,6 +77,14 @@ paths:
             properties:
               error:
                 type: string
+        500:
+          description: Server error
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+
 
   /controller:
     post:
@@ -104,6 +119,14 @@ paths:
             properties:
               error:
                 type: string
+        500:
+          description: Server error
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+
 
     delete:
       summary: Delete controller
@@ -132,6 +155,13 @@ paths:
                 type: boolean
         400:
           description: Controller not found
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: Server error
           schema:
             type: object
             properties:

@@ -54,3 +54,47 @@ func (o *GetControllersOK) WriteResponse(rw http.ResponseWriter, producer runtim
 		}
 	}
 }
+
+// GetControllersInternalServerErrorCode is the HTTP code returned for type GetControllersInternalServerError
+const GetControllersInternalServerErrorCode int = 500
+
+/*GetControllersInternalServerError Server error
+
+swagger:response getControllersInternalServerError
+*/
+type GetControllersInternalServerError struct {
+
+	/*
+	  In: Body
+	*/
+	Payload *GetControllersInternalServerErrorBody `json:"body,omitempty"`
+}
+
+// NewGetControllersInternalServerError creates GetControllersInternalServerError with default headers values
+func NewGetControllersInternalServerError() *GetControllersInternalServerError {
+
+	return &GetControllersInternalServerError{}
+}
+
+// WithPayload adds the payload to the get controllers internal server error response
+func (o *GetControllersInternalServerError) WithPayload(payload *GetControllersInternalServerErrorBody) *GetControllersInternalServerError {
+	o.Payload = payload
+	return o
+}
+
+// SetPayload sets the payload to the get controllers internal server error response
+func (o *GetControllersInternalServerError) SetPayload(payload *GetControllersInternalServerErrorBody) {
+	o.Payload = payload
+}
+
+// WriteResponse to the client
+func (o *GetControllersInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	rw.WriteHeader(500)
+	if o.Payload != nil {
+		payload := o.Payload
+		if err := producer.Produce(rw, payload); err != nil {
+			panic(err) // let the recovery middleware deal with this
+		}
+	}
+}

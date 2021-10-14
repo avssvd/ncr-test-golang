@@ -73,6 +73,17 @@ func init() {
                 }
               }
             }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -115,6 +126,17 @@ func init() {
           },
           "400": {
             "description": "Controller not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
             "schema": {
               "type": "object",
               "properties": {
@@ -188,6 +210,17 @@ func init() {
                 }
               }
             }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -219,6 +252,17 @@ func init() {
                       }
                     }
                   }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
                 }
               }
             }
@@ -284,6 +328,17 @@ func init() {
                 }
               }
             }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -326,6 +381,17 @@ func init() {
           },
           "400": {
             "description": "Controller not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
             "schema": {
               "type": "object",
               "properties": {
@@ -389,6 +455,17 @@ func init() {
                 }
               }
             }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -411,6 +488,17 @@ func init() {
                   "items": {
                     "$ref": "#/definitions/ControllersItems0"
                   }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
                 }
               }
             }

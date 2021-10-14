@@ -134,6 +134,43 @@ func (o *DeleteControllerBody) UnmarshalBinary(b []byte) error {
 	return nil
 }
 
+// DeleteControllerInternalServerErrorBody delete controller internal server error body
+//
+// swagger:model DeleteControllerInternalServerErrorBody
+type DeleteControllerInternalServerErrorBody struct {
+
+	// error
+	Error string `json:"error,omitempty"`
+}
+
+// Validate validates this delete controller internal server error body
+func (o *DeleteControllerInternalServerErrorBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this delete controller internal server error body based on context it is used
+func (o *DeleteControllerInternalServerErrorBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *DeleteControllerInternalServerErrorBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *DeleteControllerInternalServerErrorBody) UnmarshalBinary(b []byte) error {
+	var res DeleteControllerInternalServerErrorBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
+	return nil
+}
+
 // DeleteControllerOKBody delete controller o k body
 //
 // swagger:model DeleteControllerOKBody

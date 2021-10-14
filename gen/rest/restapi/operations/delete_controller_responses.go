@@ -98,3 +98,47 @@ func (o *DeleteControllerBadRequest) WriteResponse(rw http.ResponseWriter, produ
 		}
 	}
 }
+
+// DeleteControllerInternalServerErrorCode is the HTTP code returned for type DeleteControllerInternalServerError
+const DeleteControllerInternalServerErrorCode int = 500
+
+/*DeleteControllerInternalServerError Server error
+
+swagger:response deleteControllerInternalServerError
+*/
+type DeleteControllerInternalServerError struct {
+
+	/*
+	  In: Body
+	*/
+	Payload *DeleteControllerInternalServerErrorBody `json:"body,omitempty"`
+}
+
+// NewDeleteControllerInternalServerError creates DeleteControllerInternalServerError with default headers values
+func NewDeleteControllerInternalServerError() *DeleteControllerInternalServerError {
+
+	return &DeleteControllerInternalServerError{}
+}
+
+// WithPayload adds the payload to the delete controller internal server error response
+func (o *DeleteControllerInternalServerError) WithPayload(payload *DeleteControllerInternalServerErrorBody) *DeleteControllerInternalServerError {
+	o.Payload = payload
+	return o
+}
+
+// SetPayload sets the payload to the delete controller internal server error response
+func (o *DeleteControllerInternalServerError) SetPayload(payload *DeleteControllerInternalServerErrorBody) {
+	o.Payload = payload
+}
+
+// WriteResponse to the client
+func (o *DeleteControllerInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	rw.WriteHeader(500)
+	if o.Payload != nil {
+		payload := o.Payload
+		if err := producer.Produce(rw, payload); err != nil {
+			panic(err) // let the recovery middleware deal with this
+		}
+	}
+}
