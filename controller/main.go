@@ -38,17 +38,21 @@ func (opts *Options) check() error {
 	return nil
 }
 
+func (opts *Options) get() {
+	flag.StringVar(&opts.Serial, "serial", "unknown", "controller serial")
+	flag.StringVar(&opts.ServerURI, "servuri", "127.0.0.1", "server URI")
+	flag.IntVar(&opts.ServerPort, "servport", 8080, "server port")
+
+	flag.Parse()
+}
 // win 	-> 	message + wait TimeBeforeNextConnInSec
 // err 	-> 	message + wait 1 min for next conn
 //			3x err in a row -> shutdown
 
 func main() {
 	var opts Options
-	flag.StringVar(&opts.Serial, "serial", "unknown", "controller serial")
-	flag.StringVar(&opts.ServerURI, "servuri", "127.0.0.1", "server URI")
-	flag.IntVar(&opts.ServerPort, "servport", 8080, "server port")
 
-	flag.Parse()
+	opts.get()
 
 	if err := opts.check(); err != nil {
 		log.Fatal(err)
