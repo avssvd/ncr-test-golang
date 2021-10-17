@@ -45,6 +45,7 @@ func (opts *Options) get() {
 
 	flag.Parse()
 }
+
 // win 	-> 	message + wait TimeBeforeNextConnInSec
 // err 	-> 	message + wait 1 min for next conn
 //			3x err in a row -> shutdown
@@ -64,11 +65,12 @@ func main() {
 		if err != nil {
 			log.Println(err)
 			nFail++
-			// TODO fix sleep after 3rd fail
-			time.Sleep(errDelayInSec * time.Second)
+			if nFail < maxNFail {
+				time.Sleep(errDelayInSec * time.Second)
+			}
 			continue
 		}
-
+		nFail = 0
 		time.Sleep(time.Duration(delayInSec) * time.Second)
 	}
 }

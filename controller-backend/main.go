@@ -82,4 +82,3 @@ func main() {
 
 	restServe(opts.RESTPort, queries)
 }
-

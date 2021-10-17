@@ -11,7 +11,6 @@ require (
 	github.com/go-openapi/swag v0.19.15
 	github.com/go-openapi/validate v0.20.3
 	github.com/jessevdk/go-flags v1.5.0
-	github.com/lib/pq v1.10.3
 	golang.org/x/net v0.0.0-20211008194852-3b03d305991f
 	google.golang.org/grpc v1.41.0
 	google.golang.org/protobuf v1.27.1

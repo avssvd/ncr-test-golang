@@ -12,6 +12,8 @@ import (
 	"google.golang.org/grpc"
 )
 
+const defaultControllerTimeout = 10
+
 func grpcServe(grpcPort int, db *db.Queries) {
 	listenOn := fmt.Sprintf(":%d", grpcPort)
 	listener, err := net.Listen("tcp", listenOn)
@@ -21,7 +23,7 @@ func grpcServe(grpcPort int, db *db.Queries) {
 
 	server := grpc.NewServer()
 	report.RegisterReportServiceServer(server, &reportServiceServer{db: db})
-	log.Println("Listening on", listenOn)
+	log.Println("Listening grpc on", listenOn)
 	if err := server.Serve(listener); err != nil {
 		log.Fatal("failed to serve gRPC server: %w", err)
 	}
@@ -29,7 +31,7 @@ func grpcServe(grpcPort int, db *db.Queries) {
 
 type reportServiceServer struct {
 	report.UnimplementedReportServiceServer
-	db *db.Queries
+	db                      *db.Queries
 }
 
 func (s *reportServiceServer) PutReport(ctx context.Context, req *report.PutReportRequest) (*report.PutReportResponse, error) {
@@ -44,8 +46,7 @@ func (s *reportServiceServer) PutReport(ctx context.Context, req *report.PutRepo
 
 	if err != nil {
 		return &report.PutReportResponse{
-			// TODO generate? timeBeforeNextConnInSec
-			TimeBeforeNextConnInSec: 10,
+			TimeBeforeNextConnInSec: defaultControllerTimeout,
 			ErrorMessage:            err.Error(),
 		}, nil
 
