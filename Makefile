@@ -27,8 +27,8 @@ migrate:
 
 clean:
 	for client in $$(docker ps -a | grep "ncr-controller:latest" | awk '{print $$1}') ; do \
-    	docker stop $$client ; \
-    done
+		docker stop $$client ; \
+	done
 	docker-compose down
 	sudo rm -rf _postgres-data
 	docker image rm ncr-controller:latest
