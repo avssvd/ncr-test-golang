@@ -19,6 +19,8 @@
 
 ### Run without Docker
 
+Для запуска без Docker понадобится PostgreSQL [со следующей схемой](db/sqlc/migration/000001_init_schema.up.sql), доступный с данной машины.
+Реквизиты базы данных необходимо указать при вызове <code>go run</code>.
 ```shell
 cd controller-backend
 go mod download
@@ -56,6 +58,18 @@ make migrate
 
 ```shell
 make stop-server
+```
+
+### Adding controller in DB
+
+Пример добавления controller'а в базу данных:
+
+```shell
+curl --location --request POST '127.0.0.1:8001/controller' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "serial": "abcdefg12345"
+}'
 ```
 
 ## Controller
