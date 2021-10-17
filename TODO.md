@@ -1,15 +1,15 @@
 # TODO:
 
 ## Docker (Docker-compose)
-- [ ] add Dockerfile 4 controller-backend
-- [ ] add Dockerfile 4 controller
-- [ ] add docker-compose 4 deploy controller-backend & PostgreSQL
+- [x] add Dockerfile 4 controller-backend
+- [x] add Dockerfile 4 controller
+- [x] add docker-compose 4 deploy controller-backend & PostgreSQL
 
 ## DB
-- [ ] create schema
-- [ ] create migrations
-- [ ] create methods for User
-- [ ] create methods for IPCheck
+- [x] create schema
+- [x] create migrations
+- [x] create methods for User
+- [x] create methods for IPCheck
 
 ## API
 ### gRPC
@@ -18,27 +18,24 @@
 - [x] create buf.gen.yaml
 
 ### http
-- [ ] create swagger.yaml 
+- [x] create swagger.yaml 
+- [x] generate server via go-swagger
 
 ## Controller-backend
 - [x] add command-line flag parsing
-- [ ] create gRPC server
-- [ ] create http server
-- [ ] create functions 4 working with db
+- [x] create gRPC server
+- [x] create http server
+- [x] create functions 4 working with db
 
 ## Controller
 - [x] add command-line flag parsing
-- [ ] create gRPC client
-- [ ] create scheduler 4 report sending
+- [x] create gRPC client
+- [x] create scheduler 4 report sending
 
 ## Makefile
-- [ ] add build (build-server + build-client)
-- [ ] add build-server
-- [ ] add build-client
-- [ ] add run (run-server + run-client)
-- [ ] add run-server
-- [ ] add run-client
-- [ ] add stop (stop-server + stop-client)
-- [ ] add stop-server
-- [ ] add stop-client
-- [ ] add clean (stop + docker image rm ...)
+- [x] add build (build-server + build-client)
+- [x] add build-server
+- [x] add build-client
+- [x] add run-server
+- [x] add run-client
+- [x] add clean (stop + docker image rm ...)

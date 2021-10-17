@@ -1,12 +1,11 @@
 services:
   server:
-    image: ncr-controller-backend
-    command: "--dbuser=${dbuser} --dbpass=${dbpass} --dbname=${dbname} --dburi=${dburi} --dbport=${dbport} --grpcport=${grpcport} --restport=${restport}"
-#    env_file:
-#      - .env
+    image: ncr-controller-backend:latest
+    env_file:
+      - .env
     ports:
-    - "${grpcport}:${grpcport}"
-    - "${restport}:${restport}"
+      - "${grpcport}:${grpcport}"
+      - "${restport}:${restport}"
     environment:
       CONTROLLER_TIMEOUT: "${CONTROLLER_TIMEOUT}"
     networks:
@@ -21,8 +20,8 @@ services:
     image: postgres:14.0
     ports:
       - "${dbpublishport}:${dbport}"
-    volumes:
-      - ./_postgres-data:/var/lib/postgresql/data
+#    volumes:
+#      - ./_postgres-data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: "${dbpass}"
       POSTGRES_USER: "${dbuser}"
@@ -38,7 +37,7 @@ services:
       retries: 5
 
   adminer:
-    image: adminer
+    image: adminer:4
     ports:
       - 8081:8080
 
