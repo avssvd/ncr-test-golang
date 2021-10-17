@@ -1,8 +1,9 @@
-# Controller
+# Тестовое задание НЦР
 
 ---
 * [Controller-backend](#controller-backend)
 * [Controller](#controller)
+* [Uninstall](#uninstall)
 
 ---
 
@@ -32,10 +33,11 @@ go run main.go -dbuser=root -dbpass=pass -dbname=app -dburi=127.0.0.1 -dbport=54
 cp .env.example .env
 ```
 
-Собрать образ ncr-controller-backend и скачать образ PostgreSQL:
+Собрать образ ncr-controller-backend и скачать образ PostgreSQL, adminer и migrate:
 
 ```shell
-make
+make pull
+make build-server
 ```
 
 Создать и запустить контейнеры:
@@ -44,9 +46,16 @@ make
 make run-server
 ```
 
-Произвести миграцию
+Произвести миграцию:
+
 ```shell
 make migrate
+```
+
+Остановить сервер и базу данных:
+
+```shell
+make stop-server
 ```
 
 ## Controller
@@ -63,11 +72,19 @@ go run controller/main.go --serial=abcdefg12345 --servuri=127.0.0.1 --servport=8
 Собрать образ ncr-controller:
 
 ```shell
-make
+make build-client
 ```
 
 Создать и запустить контейнеры:
 
 ```shell
 make run-client ARGS="--serial=abcdefg12345 --servuri=server --servport=8000"
+```
+
+## Uninstall
+
+Остановить и удалить контейнеры и удалить используемые образы:
+
+```shell
+make clean
 ```

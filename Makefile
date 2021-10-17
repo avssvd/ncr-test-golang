@@ -24,3 +24,15 @@ stop-server:
 
 migrate:
 	docker run --rm -v $$(readlink -e ./db/sqlc/migration):/migrations --network $$(basename $$(readlink -e $$(pwd)))_ncr-network migrate/migrate -path=/migrations/ -database postgres://root:pass@db:5432/app?sslmode=disable up
+
+clean:
+	for client in $$(docker ps -a | grep "ncr-controller:latest" | awk '{print $$1}') ; do \
+    	docker stop $$client ; \
+    done
+	docker-compose down
+	sudo rm -rf _postgres-data
+	docker image rm ncr-controller:latest
+	docker image rm ncr-controller-backend:latest
+	docker image rm postgres:14.0
+	docker image rm adminer:4
+	docker image rm migrate/migrate:4

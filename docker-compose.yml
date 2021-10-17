@@ -20,8 +20,8 @@ services:
     image: postgres:14.0
     ports:
       - "${dbpublishport}:${dbport}"
-#    volumes:
-#      - ./_postgres-data:/var/lib/postgresql/data
+    volumes:
+      - ./_postgres-data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: "${dbpass}"
       POSTGRES_USER: "${dbuser}"
