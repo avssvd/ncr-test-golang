@@ -1,3 +1,4 @@
+version: "3.8"
 services:
   server:
     image: ncr-controller-backend:latest
@@ -6,8 +7,6 @@ services:
     ports:
       - "${grpcport}:${grpcport}"
       - "${restport}:${restport}"
-    environment:
-      CONTROLLER_TIMEOUT: "${CONTROLLER_TIMEOUT}"
     networks:
       ncr-network:
         aliases:
