@@ -17,7 +17,7 @@
 
 [DB schema](db/sqlc/migration/000001_init_schema.up.sql)
 
-### Run 
+### Run without Docker
 
 ```shell
 cd controller-backend
@@ -25,7 +25,7 @@ go mod download
 go run main.go -dbuser=root -dbpass=pass -dbname=app -dburi=127.0.0.1 -dbport=5432 -grpcport=8000 -restport=8001
 ```
 
-### Docker
+### Run with Docker
 
 Создать и отредактировать файл .env на основе .env.example:
 
@@ -60,7 +60,7 @@ make stop-server
 
 ## Controller
 
-### Run
+### Run without Docker
 
 ```shell
 cd controller
@@ -68,7 +68,7 @@ go mod download
 go run controller/main.go --serial=abcdefg12345 --servuri=127.0.0.1 --servport=8000
 ```
 
-### Docker
+### Run with Docker
 Собрать образ ncr-controller:
 
 ```shell
