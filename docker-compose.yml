@@ -20,6 +20,7 @@ services:
     ports:
       - "${dbpublishport}:${dbport}"
     volumes:
+      - ./db/sqlc/migration/000001_init_schema.up.sql:/docker-entrypoint-initdb.d/init_schema.sql
       - ./_postgres-data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: "${dbpass}"
@@ -39,6 +40,10 @@ services:
     image: adminer:4
     ports:
       - 8081:8080
+    networks:
+      ncr-network:
+        aliases:
+          - adminer
 
 networks:
   ncr-network:

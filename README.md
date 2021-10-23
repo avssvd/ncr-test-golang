@@ -1,4 +1,4 @@
-# Тестовое задание НЦР
+# Тестовое задание НЦР (работа над ошибками)
 
 ---
 * [Controller-backend](#controller-backend)
@@ -46,12 +46,6 @@ make build-server
 
 ```shell
 make run-server
-```
-
-Произвести миграцию:
-
-```shell
-make migrate
 ```
 
 Остановить сервер и базу данных:

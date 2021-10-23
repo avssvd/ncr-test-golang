@@ -11,7 +11,7 @@ build-client:
 	docker build -f ./controller/Dockerfile -t ncr-controller:latest ./controller/
 
 build-server:
-	docker build -f ./controller-backend/Dockerfile -t ncr-controller-backend:latest ./controller-backend/
+	docker-compose build
 
 run-client:
 	docker run --rm --network $$(basename $$(readlink -e $$(pwd)))_ncr-network ${ARGS} ncr-controller:latest
@@ -21,9 +21,6 @@ run-server:
 
 stop-server:
 	docker-compose stop
-
-migrate:
-	docker run --rm -v $$(readlink -e ./db/sqlc/migration):/migrations --network $$(basename $$(readlink -e $$(pwd)))_ncr-network migrate/migrate -path=/migrations/ -database postgres://root:pass@db:5432/app?sslmode=disable up
 
 clean:
 	for client in $$(docker ps -a | grep "ncr-controller:latest" | awk '{print $$1}') ; do \
