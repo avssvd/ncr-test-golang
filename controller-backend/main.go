@@ -76,6 +76,12 @@ func main() {
 		log.Fatal("failed to open db:", err.Error())
 	}
 
+	err = database.Ping()
+	if err != nil {
+		log.Fatal("failed to verify a connection to db:", err.Error())
+	}
+	log.Println("connection to db verified successful")
+
 	queries := db.New(database)
 
 	go grpcServe(opts.GRPCPort, queries)
