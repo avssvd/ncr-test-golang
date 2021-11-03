@@ -1,13 +1,13 @@
 # TODO:
 
 ## Fixes
-- [ ] hardcode? internal db port
+- [x] hardcode? internal db port
 - [x] add <code>adminer</code> service to network
-- [ ] use environment variables instead of dotenv file
-- [ ] remove extra <code>.go</code> files from backend image
+- [x] use environment variables instead of dotenv file
+- [x] remove extra <code>.go</code> files from backend image
 - [x] use <code>docker-compose build</code>
 - [x] make migrations via <code>docker-entrypoint-initdb.d</code>
-- [ ] use <code>db.Ping()</code> 4 check db connection
+- [x] use <code>db.Ping()</code> 4 check db connection
 - [ ] add logging http requests
 
 ## Docker (Docker-compose)

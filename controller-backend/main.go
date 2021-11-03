@@ -80,7 +80,7 @@ func main() {
 	if err != nil {
 		log.Fatal("failed to verify a connection to db:", err.Error())
 	}
-	log.Println("connection to db verified successful")
+	log.Println("Connection to db verified successfully")
 
 	queries := db.New(database)
 

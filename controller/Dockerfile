@@ -1,11 +1,16 @@
-FROM golang:1.17
-WORKDIR /go/src/github.com/avssvd/ncr-test-golang/controller
+FROM golang:1.17 AS service-dependencies
+WORKDIR /app
+COPY go.mod .
+COPY go.sum .
+RUN go mod download
+
+FROM service-dependencies AS build
+WORKDIR /app
 COPY . .
-RUN go get -d -v ./...
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
 
-FROM alpine:latest
+FROM alpine:3.14
 RUN apk --no-cache add ca-certificates
-WORKDIR /root/
-COPY --from=0 /go/src/github.com/avssvd/ncr-test-golang/controller/app ./app
-ENTRYPOINT ["./app"]
+WORKDIR /app
+COPY --from=build /app/app ./app
+ENTRYPOINT ./app --serial=${serial} --servuri=${servuri} --servport=${servport}

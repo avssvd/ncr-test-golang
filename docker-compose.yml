@@ -1,9 +1,17 @@
 version: "3.8"
 services:
   server:
-    image: ncr-controller-backend:latest
-    env_file:
-      - .env
+    build:
+      context: controller-backend
+      dockerfile: Dockerfile
+    environment:
+      dbuser: "${dbuser}"
+      dbpass: "${dbpass}"
+      dbname: "${dbname}"
+      dburi: "${dburi}"
+      dbport: "${dbport}"
+      grpcport: "${grpcport}"
+      restport: "${restport}"
     ports:
       - "${grpcport}:${grpcport}"
       - "${restport}:${restport}"
@@ -18,10 +26,10 @@ services:
   db:
     image: postgres:14.0
     ports:
-      - "${dbpublishport}:${dbport}"
+      - "${dbpublishport}:5432"
     volumes:
       - ./db/sqlc/migration/000001_init_schema.up.sql:/docker-entrypoint-initdb.d/init_schema.sql
-      - ./_postgres-data:/var/lib/postgresql/data
+#      - ./_postgres-data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: "${dbpass}"
       POSTGRES_USER: "${dbuser}"
@@ -31,7 +39,7 @@ services:
         aliases:
           - db
     healthcheck:
-      test: "pg_isready -q -h db"
+      test: [ "CMD", "pg_isready", "-q", "-d", "${dbname}", "-U", "${dbuser}" ]
       interval: 3s
       timeout: 5s
       retries: 5
