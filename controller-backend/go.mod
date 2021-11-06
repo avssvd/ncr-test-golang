@@ -3,12 +3,12 @@ module github.com/avssvd/ncr-test-golang/controller-backend
 go 1.17
 
 require (
-	github.com/avssvd/ncr-test-golang v0.0.0-20211017184918-74b822aeb36b
+	github.com/avssvd/ncr-test-golang v0.0.0-20211106103422-f7d89f8028ae
 	github.com/go-openapi/loads v0.21.0
 	github.com/go-openapi/runtime v0.21.0
 	github.com/go-openapi/strfmt v0.21.0
 	github.com/lib/pq v1.10.3
-	google.golang.org/grpc v1.41.0
+	google.golang.org/grpc v1.42.0
 )
 
 require (
@@ -16,7 +16,7 @@ require (
 	github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 // indirect
 	github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d // indirect
 	github.com/docker/go-units v0.4.0 // indirect
-	github.com/go-openapi/analysis v0.21.0 // indirect
+	github.com/go-openapi/analysis v0.21.1 // indirect
 	github.com/go-openapi/errors v0.20.1 // indirect
 	github.com/go-openapi/jsonpointer v0.19.5 // indirect
 	github.com/go-openapi/jsonreference v0.19.6 // indirect
@@ -30,11 +30,11 @@ require (
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mitchellh/mapstructure v1.4.2 // indirect
 	github.com/oklog/ulid v1.3.1 // indirect
-	go.mongodb.org/mongo-driver v1.7.3 // indirect
-	golang.org/x/net v0.0.0-20211020060615-d418f374d309 // indirect
-	golang.org/x/sys v0.0.0-20211025201205-69cdffdb9359 // indirect
+	go.mongodb.org/mongo-driver v1.7.4 // indirect
+	golang.org/x/net v0.0.0-20211105192438-b53810dc28af // indirect
+	golang.org/x/sys v0.0.0-20211105183446-c75c47738b0c // indirect
 	golang.org/x/text v0.3.7 // indirect
-	google.golang.org/genproto v0.0.0-20211028162531-8db9c33dc351 // indirect
+	google.golang.org/genproto v0.0.0-20211104193956-4c6863e31247 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )

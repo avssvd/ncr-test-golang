@@ -37,6 +37,7 @@ func restServe(serverPort int, db *db.Queries) {
 	api.GetControllerIndicationsHandler = operations.GetControllerIndicationsHandlerFunc(GetControllerIndicationsHandlerFunc(db))
 	api.PostControllerHandler = operations.PostControllerHandlerFunc(PostControllerHandlerFunc(db))
 	api.DeleteControllerHandler = operations.DeleteControllerHandlerFunc(DeleteControllerHandlerFunc(db))
+	server.ConfigureAPI()
 
 	// serve API
 	if err := server.Serve(); err != nil {

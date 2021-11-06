@@ -3,7 +3,6 @@ all: pull build
 pull:
 	docker pull postgres:14.0
 	docker pull adminer:4
-	docker pull migrate/migrate:4
 
 build: build-server build-client
 
@@ -29,7 +28,5 @@ clean:
 	docker-compose down
 	sudo rm -rf _postgres-data
 	docker image rm ncr-controller:latest
-	docker image rm ncr-controller-backend:latest
 	docker image rm postgres:14.0
 	docker image rm adminer:4
-	docker image rm migrate/migrate:4

@@ -8,7 +8,8 @@
 - [x] use <code>docker-compose build</code>
 - [x] make migrations via <code>docker-entrypoint-initdb.d</code>
 - [x] use <code>db.Ping()</code> 4 check db connection
-- [ ] add logging http requests
+- [x] add logging http requests
+- [ ] rewrite db client on GORM
 
 ## Docker (Docker-compose)
 - [x] add Dockerfile 4 controller-backend
